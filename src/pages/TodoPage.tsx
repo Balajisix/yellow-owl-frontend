@@ -11,6 +11,8 @@ type Todo = {
   createdAt?: string;
 };
 
+const BASE_API = 'https://yellow-owl-backend-seven.vercel.app'
+
 const defaultCategories = ["Work", "Personal", "Hospital"];
 
 // Color palette for categories
@@ -53,7 +55,7 @@ const Home: React.FC = () => {
   };
 
   const fetchTodos = async () => {
-    const res = await axios.get("http://localhost:5000/api/get-todo");
+    const res = await axios.get(`${BASE_API}/api/get-todo`);
     const data = Array.isArray(res.data) ? res.data : res.data.data;
     if (Array.isArray(data)) {
       setTodos(data);
@@ -85,13 +87,13 @@ const Home: React.FC = () => {
 
     if (editingId) {
       const res = await axios.put(
-        `http://localhost:5000/api/update-todo/${editingId}`,
+        `${BASE_API}/api/update-todo/${editingId}`,
         todo
       );
       setTodos(todos.map((t) => (t._id === editingId ? res.data : t)));
       setEditingId(null);
     } else {
-      const res = await axios.post("http://localhost:5000/api/newtodo", {
+      const res = await axios.post(`${BASE_API}/api/newtodo`, {
         ...todo,
         completed: false,
         createdAt: new Date().toISOString(),
@@ -108,7 +110,7 @@ const Home: React.FC = () => {
   };
 
   const handleDelete = async (id: string) => {
-    await axios.delete(`http://localhost:5000/api/delete-todo/${id}`);
+    await axios.delete(`${BASE_API}/api/delete-todo/${id}`);
     setTodos(todos.filter((t) => t._id !== id));
   };
 
@@ -118,7 +120,7 @@ const Home: React.FC = () => {
     );
 
     try {
-      await axios.put(`http://localhost:5000/api/update-todo/${id}`, {
+      await axios.put(`${BASE_API}/api/update-todo/${id}`, {
         ...todos.find((t) => t._id === id)!,
         completed: newStatus,
       });
