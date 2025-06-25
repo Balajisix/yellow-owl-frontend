@@ -154,7 +154,7 @@ const Home: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            ✨ Task Planner
+            Task Planner
           </h1>
           <p className="text-gray-600 text-lg">Organize your life, one task at a time</p>
         </div>
